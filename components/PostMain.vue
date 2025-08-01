@@ -37,7 +37,7 @@
       <div class="text-[14px] pb-0.5 flex items-center font-semibold">
         <Icon name="solar:music-note-bold" size="17px" />
         <div class="px-1">original sound - AWESOME</div>
-        <Icon name="ic:round-favorite" size="20px" />
+        <Icon name="material-symbols:favorite" size="20px" />
       </div>
 
       <div class="mt-2.5 flex">
@@ -59,10 +59,28 @@
           />
         </div>
         <div class="relative mr-[75px]">
-            <button class="absolute bottom-0 pl-2">
-                <Icon name="ic:round-favorite" size="25"/>
-            </button>
-            <span class="text-x"></span>
+            <div class="absolute bottom-0 pl-2">
+              <div class="pb-4 text-center">
+                <button class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
+                  <Icon name="material-symbols:favorite" size="25"/>
+                </button>
+                <span class="text-xs text-gray-800 font-semibold">34</span>
+              </div>
+
+              <div class="pb-4 text-center">
+                <button class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
+                  <Icon name="bx:bxs-message-rounded-dots" size="25"/>
+                </button>
+                <span class="text-xs text-gray-800 font-semibold">12</span>
+              </div>
+
+              <div class="pb-4 text-center">
+                <button class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
+                  <Icon name="mingcute:share-forward-fill" size="25"/>
+                </button>
+                <span class="text-xs text-gray-800 font-semibold">4</span>
+              </div>
+            </div>
         </div>
       </div>
     </div>
