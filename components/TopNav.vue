@@ -26,7 +26,9 @@
         </div>
       </div>
 
-      <div
+      <div class="flex items-center">
+
+        <div 
         class="flex items-center justify-end gap-3 min-w-[275px] max-w-[320px] w-full"
       >
         <button
@@ -46,10 +48,10 @@
         <Icon name="mdi:dots-vertical" color="#16724" size="25"></Icon>
       </div>
 
-      <div class="flex items-center">
+
         <Icon
-          class="ml-1 mr-4"
-          name="carbon:send-alt"
+          class="ml-3 mr-4"
+          name="iconoir:send-diagonal"
           color="#161724"
           size="30"
         ></Icon>

@@ -1,4 +1,5 @@
 <template>
+  <UploadError :errorType="errorType"/>
   <UploadLayout>
     <div
       class="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10"
@@ -9,8 +10,10 @@
       </div>
       <div class="mt-8 md:flex gap-6">
         <label
-          v-if="false"
+          v-if="!fileDisplay"
           for="fileInput"
+          @drop.prevent="onDrop"
+          @dragover.prevent=""
           class="md:mx-0 mx-auto mt-4 mb-6 flex flex-col items-center justify-center w-full max-w-[260px] h-[470px] text-center p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer"
         >
           <Icon
@@ -30,7 +33,14 @@
           >
             Select file
           </div>
-          <input ref="file" type="file" id="fileInput" hidden accept=".mp4" />
+          <input
+            @input="onChange"
+            ref="file"
+            type="file"
+            id="fileInput"
+            hidden
+            accept=".mp4"
+          />
         </label>
 
         <div
@@ -53,7 +63,7 @@
               loop
               muted
               class="absolute rounded-xl object-cover z-10 p-[13px] w-full h-full inset-0"
-              src="/sea.mp4"
+              :src="fileDisplay"
             ></video>
             <div
               class="absolute -bottom-12 right-0 flex items-center justify-between z-50 rounded-xl border w-full p-2 border-gray-300"
@@ -65,10 +75,10 @@
                   class="min-w-[16px]"
                 ></Icon>
                 <div class="text-[11px] pl-1 truncate text-ellipsis">
-                  video name
+                  {{ fileData.name }}
                 </div>
               </div>
-              <button class="text-[11px] ml-2 font-semibold">Change</button>
+              <button @click="clearVideo" class="text-[11px] ml-2 font-semibold">Change</button>
             </div>
           </div>
         </div>
@@ -76,7 +86,11 @@
         <div class="mt-4 mb-6">
           <div class="flex bg-[#f8f8f8] py-4 px-6 rounded-xl">
             <div>
-              <Icon name="fluent:edit-off-24-filled" size="20" class="mr-4"></Icon>
+              <Icon
+                name="fluent:edit-off-24-filled"
+                size="20"
+                class="mr-4"
+              ></Icon>
             </div>
             <div>
               <div class="text-semibold text-[15px] mb-1.5">
@@ -87,8 +101,12 @@
                 redundant parts and turn landscape videos into portrait videos
               </div>
             </div>
-            <div class="flex justify-end max-w-[130px] w-full text-center my-auto">
-              <button class="px-8 py-1.5 text-white text-[15px] bg-[#f02c56] rounded-sm">
+            <div
+              class="flex justify-end max-w-[130px] w-full text-center my-auto"
+            >
+              <button
+                class="px-8 py-1.5 text-white text-[15px] bg-[#f02c56] rounded-sm"
+              >
                 Edit
               </button>
             </div>
@@ -97,26 +115,81 @@
           <div class="mt-5">
             <div class="flex items-center justify-between">
               <div class="mb-1 text-[15px]">Caption</div>
-              <div class="text-gray-400 text-[12px]">0/150</div>
+              <div class="text-gray-400 text-[12px]">{{caption?.length}} /150</div>
             </div>
-            <input maxlength="150" type="text" class="w-full border p-2.5 rounded-md focus:outline-none">
+            <input
+              v-model="caption"
+              maxlength="150"
+              type="text"
+              class="w-full border p-2.5 rounded-md focus:outline-none"
+            />
           </div>
 
           <div class="flex gap-3">
-            <button class="px-10 py-2.5 mt-8 border text-[16px] hover:bg-gray-100 rounded-sm">
+            <button
+              @click="discard"
+              class="px-10 py-2.5 mt-8 border text-[16px] hover:bg-gray-100 rounded-sm"
+            >
               Discard
             </button>
-            <button class="px-10 py-2.5 mt-8 border text-[16px] rounded-sm bg-[#f02c56] text-white">
+            <button
+              class="px-10 py-2.5 mt-8 border text-[16px] rounded-sm bg-[#f02c56] text-white"
+            >
               Post
             </button>
           </div>
         </div>
-
       </div>
     </div>
   </UploadLayout>
 </template>
 <script setup>
 import UploadLayout from "~/layouts/UploadLayout.vue";
+let file = ref(null);
+let fileDisplay = ref(null);
+let errorType = ref(null);
+let caption = ref("");
+let fileData = ref(null);
+let errors = ref(null);
+let isUploading = ref(false);
+
+watch(()=>caption.value,(caption)=>{
+  if (caption.length >= 150){
+    errorType.value = 'caption'
+    return
+  }
+  errorType.value = null
+})
+
+const onChange = () => {
+  fileDisplay.value = URL.createObjectURL(file.value.files[0]);
+  fileData.value = file.value.files[0];
+};
+
+const onDrop = (e) => {
+  errorType.value = "";
+  file.value = e.dataTransfer.files[0];
+  fileData.value = e.dataTransfer.files[0];
+  let extention = file.value.name.substring(
+    file.value.name.lastIndexOf(".") + 1
+  );
+  if (extention !== "mp4") {
+    errorType.value = "file";
+    return;
+  }
+  fileDisplay.value = URL.createObjectURL(e.dataTransfer.files[0]);
+};
+
+const discard = ()=>{
+   file.value = null
+   fileDisplay.value = null
+   fileData.value = null
+   caption.value = null
+}
+const clearVideo = ()=>{
+   file.value = null
+   fileDisplay.value = null
+   fileData.value = null
+};
 </script>
 <style scoped></style>
