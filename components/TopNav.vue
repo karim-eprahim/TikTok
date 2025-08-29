@@ -28,7 +28,7 @@
 
       <div class="flex items-center">
 
-        <div 
+        <div v-if="true"
         class="flex items-center justify-end gap-3 min-w-[275px] max-w-[320px] w-full"
       >
         <button
@@ -39,7 +39,7 @@
         </button>
       </div>
 
-      <div v-if="false" class="flex items-center">
+      <div v-else class="flex items-center">
         <button
           class="flex items-center text-white bg-[#f02c56] border rounded-md px-3 py-[6px] cursor-pointer"
         >

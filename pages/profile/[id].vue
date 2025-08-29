@@ -1,7 +1,6 @@
 <template>
-  <MainLayout>
     <div
-      class="pt-[90px] 2xl:pl-[185px] lg:pl-[160px] lg:pr-[0px] pr-2 w-[calc(100%-90px)] max-w-[1800px] 2xl:mx-auto"
+      class="pt-[90px] 2xl:pl-[200px] lg:pl-[160px] lg:pr-[0px] pr-2 w-[calc(100%-90px)] max-w-[1800px] 2xl:mx-auto"
     >
       <div class="flex w-[calc(100vw-230px)]">
         <img
@@ -47,15 +46,23 @@
       </div>
 
       <div class="w-full flex items-center pt-4 border-b">
-        <div class="w-60 text-center py-2 text-[17px] font-semibold border-b-2 border-b-black">Videos</div>
+        <div class="w-60 text-center py-2 text-[17px] font-semibold border-b-2 border-b-black">
+          Videos
+        </div>
         <div class="w-60 text-gray-500 text-center py-2 text-[17px] font-semibold">
           <Icon name="material-symbols:lock-open"/> Liked
         </div>
       </div>
+
+      <div class="mt-4 grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
+        <PostUser/>
+        <PostUser/>
+        <PostUser/>
+        <PostUser/>
+      </div>
+
     </div>
-  </MainLayout>
 </template>
 <script setup>
-import MainLayout from "~/layouts/MainLayout.vue";
 </script>
 <style scoped></style>
