@@ -12,14 +12,14 @@
 
       <div v-if="true">
         <button
-          :disabled="!isLoading"
+          :disabled="!isLoaded"
           @click="loopThroughPostsUp()"
           class="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
         >
           <Icon name="mdi:chevron-up" size="30" class="text-white" />
         </button>
         <button
-          :disabled="!isLoading"
+          :disabled="!isLoaded"
           @click="loopThroughPostsDown()"
           class="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
         >
@@ -40,7 +40,7 @@
       />
 
       <div
-        v-if="true"
+        v-if="!isLoaded"
         class="flex items-center justify-center bg-black bg-opacity-70 h-screen lg:min-w-[480px]"
       >
         <Icon
@@ -48,6 +48,16 @@
           name="mingcute:loading-line"
           size="100"
         ></Icon>
+      </div>
+      <div class="bg-black bg-opacity-70 lg:min-w-[480px]">
+        <video
+          v-if="true"
+          ref="video"
+          loop
+          muted
+          class="h-screen mx-auto"
+          src="/first.mp4"
+        ></video>
       </div>
     </div>
 
@@ -149,9 +159,92 @@
             </div>
           </div>
         </div>
+
+        <div class="mb-28" />
+      </div>
+
+      <div
+        v-if="true"
+        id="CreateComment"
+        class="absolute flex justify-between bottom-0 bg-white h-[85px] lg-max-w-[550px] w-full py-5 px-8 border-t-2"
+      >
+        <div
+          :class="
+            inputFocused
+              ? 'border-2 border-gray-400'
+              : 'border-2 border-[#f1f1f2]'
+          "
+          class="bg-[#f1f1f2] flex items-center rounded-lg w-full lg:max-w-[420px]"
+        >
+          <input
+            type="text"
+            v-model="comment"
+            @focus="inputFocused = true"
+            @blur="inputFocused = false"
+            class="bg-[#f1f1f2] text-[14px] focus:outline-none w-full lg:max-w-[420px] p-2 rounded-lg"
+            placeholder="Add Comment"
+          />
+        </div>
+        <button
+          :disabled="!comment"
+          :class="comment ? 'text-[#f02c56]' : 'text-gray-400'"
+          class="font-semibold text-sm ml-5 pr-1"
+        >
+          Post
+        </button>
       </div>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+const route = useRoute();
+const router = useRouter();
+
+let video = ref(null);
+let isLoaded = ref(false);
+let comment = ref(null);
+let inputFocused = ref(false);
+
+// onMounted(() => {
+//   video.value.addEventListener("loadeddata", (e) => {
+//     if (e.target) {
+//       setTimeout(() => {
+//         isLoaded.value = true;
+//       }, 500);
+//     }
+//   });
+// });
+
+onMounted(() => {
+  isLoaded.value = true;
+  video.value.play();
+
+  // if (video.value) {
+  //   if (video.value.readyState >= 3) {
+  //     isLoaded.value = true
+  //   } else {
+  //     video.value.addEventListener("canplaythrough", () => {
+  //       isLoaded.value = true
+  //     })
+  //   }
+  // }
+});
+
+onBeforeUnmount(() => {
+  video.value.pause();
+  video.value.currentTime = 0;
+  video.value.src = "";
+});
+
+watch(
+  () => isLoaded.value,
+  () => {
+    if (isLoaded.value) {
+      setTimeout(() => {
+        video.value.play();
+      }, 500);
+    }
+  }
+);
+</script>
 <style scoped></style>
