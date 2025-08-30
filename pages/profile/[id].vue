@@ -2,7 +2,7 @@
     <div
       class="pt-[90px] 2xl:pl-[200px] lg:pl-[160px] lg:pr-[0px] pr-2 w-[calc(100%-90px)] max-w-[1800px] 2xl:mx-auto"
     >
-      <div class="flex w-[calc(100vw-230px)]">
+      <div class="flex ">
         <img
           src="https://picsum.photos/300/300?grayscale"
           class="max-w-[120px] max-h-[120px] object-cover rounded-full"

@@ -1,14 +1,12 @@
 <template>
    <NuxtLayout>
      <NuxtPage></NuxtPage>
+     <AuthOverlay></AuthOverlay>
    </NuxtLayout>
 </template>
 <script setup>
 </script>
 <style>
-body{
-  overflow: hidden;
-}
 button {
   cursor: pointer;
 }
