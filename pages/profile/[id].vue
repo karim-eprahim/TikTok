@@ -13,6 +13,7 @@
           <div class="text-[18px] truncate">User name</div>
           <button
             v-if="true"
+            @click="$generalStore.isEditProfileOpen = true"
             class="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
           >
             <Icon class="mt-0.5 mr-1" size="18" name="mdi-pencil"></Icon>
@@ -64,5 +65,7 @@
     </div>
 </template>
 <script setup>
+const {$generalStore} = useNuxtApp()
+// const {isEditProfileOpen} = storeToRefs($generalStore);
 </script>
 <style scoped></style>

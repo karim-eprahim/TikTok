@@ -1,10 +1,15 @@
 <template>
    <NuxtLayout>
      <NuxtPage></NuxtPage>
-     <AuthOverlay></AuthOverlay>
+     <AuthOverlay v-if="isLoginOpen"></AuthOverlay>
+     <EditProfileOverlay v-if="isEditProfileOpen"></EditProfileOverlay>
    </NuxtLayout>
 </template>
 <script setup>
+import { storeToRefs } from 'pinia';
+const {$generalStore} = useNuxtApp()
+const {isLoginOpen} = storeToRefs($generalStore);
+const {isEditProfileOpen} = storeToRefs($generalStore);
 </script>
 <style>
 button {
