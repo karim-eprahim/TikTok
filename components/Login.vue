@@ -8,7 +8,7 @@
         v-model:input="email"
         inputType="email"
         :autoFocus="true"
-        error=""
+        :error="errors && errors.email ? errors.email[0] : ''"
       />
     </div>
     <div class="px-6 pb-2">
@@ -21,16 +21,33 @@
     <div class="px-6 text-[12px] text-gray-600">Forget password</div>
     <div class="px-6 pb-2 mt-6">
       <button
-        :disabled="!email || !password"
-        :class="(!email || !password)? 'bg-gray-200' : 'bg-[#f02c56]'"
         @click="Login()"
+        :disabled="!email || !password"
+        :class="!email || !password ? 'bg-gray-200' : 'bg-[#f02c56]'"
         class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
-      >Log in</button>
+      >
+        Log in
+      </button>
     </div>
   </div>
 </template>
 <script setup>
-let email = ref(null)
-let password = ref(null)
-let errors = ref(null)
+const { $userStore,$generalStore } = useNuxtApp();
+
+let email = ref("karim@gmail.com");
+let password = ref("123123123");
+let errors = ref(null);
+const Login = async () => {
+  errors.value = null
+  try {
+    await $userStore.getTokens()
+    await $userStore.login(email.value,password.value)
+    await $userStore.getUser()
+
+    $generalStore.isLoginOpen = false
+  } catch(error) {
+    console.log(error)
+    errors.value = error.response.data.errors
+  }
+};
 </script>

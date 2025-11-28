@@ -7,7 +7,7 @@
         v-model:input="name"
         inputType="text"
         :autoFocus="true"
-        error=""
+        :error="errors && errors.name ? errors.name[0] : ''"
       />
     </div>
     <div class="px-6 pb-2">
@@ -15,7 +15,7 @@
         placeholder="Email address"
         v-model:input="email"
         inputType="email"
-        error=""
+        :error="errors && errors.email ? errors.email[0] : ''"
       />
     </div>
     <div class="px-6 pb-2">
@@ -23,7 +23,7 @@
         placeholder="Password"
         v-model:input="password"
         inputType="password"
-        error=""
+        :error="errors && errors.password ? errors.password[0] : ''"
       />
     </div>
     <div class="px-6 pb-2">
@@ -31,24 +31,55 @@
         placeholder="Confirm password"
         v-model:input="confirmPassword"
         inputType="password"
-        error=""
+        :error="errors && errors.confirmPassword ? errors.confirmPassword[0] : ''"
       />
     </div>
     <div class="px-6 text-[12px] text-gray-600">Forget password</div>
     <div class="px-6 pb-2 mt-6">
       <button
-        :disabled="!name|| !email || !password || !confirmPassword"
-        :class="(!name|| !email || !password || !confirmPassword)? 'bg-gray-200' : 'bg-[#f02c56]'"
+        :disabled="!name || !email || !password || !confirmPassword"
+        :class="
+          !name || !email || !password || !confirmPassword
+            ? 'bg-gray-200'
+            : 'bg-[#f02c56]'
+        "
         @click="register()"
         class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
-      >Sign up</button>
+      >
+        Sign up
+      </button>
     </div>
   </div>
 </template>
 <script setup>
-let name = ref(null)
-let email = ref(null)
-let password = ref(null)
-let confirmPassword = ref(null)
-let errors = ref(null)
+const {$userStore,$generalStore} = useNuxtApp()
+let name = ref(null);
+let email = ref(null);
+let password = ref(null);
+let confirmPassword = ref(null);
+let errors = ref(null);
+let loading = ref(false);
+
+const register = async () => {
+  errors.value = null;
+  loading.value = true;
+  try {
+    await $userStore.getTokens();
+    let res = await $userStore.register(
+      name.value,
+      email.value,
+      password.value,
+      confirmPassword.value
+    )
+    console.log(res)
+    await $userStore.getUser();
+
+    $generalStore.isLoginOpen = false;
+  } catch (error) {
+    console.log(error);
+    errors.value = error.response.data.errors;
+  } finally {
+    loading.value = false;
+  }
+};
 </script>

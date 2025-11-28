@@ -32,6 +32,7 @@
           class="flex items-center justify-end gap-3 lg:min-w-[275px] max-w-[320px] w-full"
         >
           <button
+            @click="isLoggedIn()"
             class="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100 cursor-pointer"
           >
             <Icon name="material-symbols:add" color="#00000" size="22"></Icon>
@@ -66,8 +67,8 @@
             <button class="mt-1" @click="showMenu = !showMenu">
               <img
                 class="rounded-full max-w-[35px] h-[35px]"
-                width="33"
-                src="https://picsum.photos/200/300?grayscale"
+                width="35"
+                :src="$userStore.image"
                 alt=""
               />
             </button>
@@ -81,6 +82,7 @@
                 class="absolute bg-white rounded-lg py-1.5 w-[200px] shadow-xl top-[55px] right-3"
               >
                 <nuxt-link
+                  :to="`profile/${$userStore.id}`"
                   @click="($event) => (showMenu = false)"
                   class="flex items-center justify-start m-0 py-3 px-2 hover:bg-gray-100 cursor-pointer"
                 >
@@ -88,7 +90,7 @@
                   <span class="pl-2 font-semibold text-sm">profile</span>
                 </nuxt-link>
                 <div
-                  @click="($event) => (showMenu = false)"
+                  @click="logout()"
                   class="flex items-center justify-start m-0 py-3 px-2 hover:bg-gray-100 border-t cursor-pointer"
                 >
                   <Icon name="ic:outline-log-in" size="20"></Icon>
@@ -103,10 +105,41 @@
   </div>
 </template>
 <script setup>
-
 const { $userStore, $generalStore } = useNuxtApp();
 const route = useRoute();
+const router = useRouter();
 const {isLoginOpen} = storeToRefs($generalStore)
 let showMenu = ref(false);
+
+onMounted(()=>{
+  const onDocMouseUp = function(e){
+    const popupMenu = document.getElementById('PopupMenu')
+    const target = e && e.target ? e.target : null
+    if(!popupMenu || !(target instanceof Node) || !popupMenu.contains(target)){
+      showMenu.value = false
+    }
+  }
+  document.addEventListener('mouseup', onDocMouseUp)
+
+  onUnmounted(() => {
+    document.removeEventListener('mouseup', onDocMouseUp)
+  })
+})
+
+const isLoggedIn = ()=>{
+  if($userStore.id){
+    router.push('/upload')
+  } else {
+    $generalStore.isLoginOpen = true
+  }
+}
+const logout = ()=>{
+  try {
+    $userStore.logout()
+    router.push('/')
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 <style></style>

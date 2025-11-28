@@ -7,9 +7,26 @@
 </template>
 <script setup>
 import { storeToRefs } from 'pinia';
-const {$generalStore} = useNuxtApp()
-const {isLoginOpen} = storeToRefs($generalStore);
-const {isEditProfileOpen} = storeToRefs($generalStore);
+const {$userStore, $generalStore} = useNuxtApp()
+// const {isLoginOpen} = storeToRefs($generalStore);
+const {isEditProfileOpen,isLoginOpen} = storeToRefs($generalStore);
+
+onMounted(async ()=>{
+  $generalStore.bodySwitch(false)
+  isEditProfileOpen.value = false
+  isLoginOpen.value = false
+  try{
+    await $generalStore.hasSessionExpired()
+    if($userStore.id){
+      $userStore.getUser()
+    }
+  }catch(error){
+    console.log(error)
+  }
+}); 
+
+watch(()=>isLoginOpen.value,(val)=>$generalStore.bodySwitch(val))
+watch(()=>isEditProfileOpen.value,(val)=>$generalStore.bodySwitch(val))
 </script>
 <style>
 button {

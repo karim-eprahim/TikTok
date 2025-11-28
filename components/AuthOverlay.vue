@@ -4,9 +4,10 @@
     class="fixed flex justify-center z-50 top-0 left-0 w-full h-full bg-black/50"
   >
     <div
+      :class="!isRegister?'min-h-[400px]':'min-h-[550px]'"
       class=" m-auto bg-white w-full max-w-[470px] h-[70%] p-4 rounded-lg overflow-y-auto"
     >
-      <div class="relative" :class="isRegister?'min-h-[500px]':'min-h-[393px]'">
+      <div class="relative h-full" :class="isRegister?'min-h-[500px]':'min-h-[393px]'">
         <div class="w-full flex justify-end">
           <button @click="$generalStore.isLoginOpen = false" class="flex p-1.5 rounded-full bg-gray-100">
             <Icon
@@ -16,21 +17,24 @@
           </button>
         </div>
 
-        <Login v-if="!isRegister" />
-        <Register v-else />
+        <div class="flex flex-col justify-between h-[calc(100%-38px)]">
+          <Login v-if="!isRegister" />
+          <Register v-else />
 
-        <div
-          class="absolute flex items-center justify-center py-5 left-0 bottom-0 border-t w-full"
-        >
-          <span class="text-[14px] text-gray-600">Don't have an account?</span>
-          <button
-            @click="isRegister = !isRegister"
-            class="text-[14px] text-[#f02c56] font-semibold pl-1"
+          <div
+            class="flex items-center justify-center py-5 border-t w-full"
           >
-            <span v-if="!isRegister">Sign up</span>
-            <span v-else>Log in</span>
-          </button>
+            <span class="text-[14px] text-gray-600">Don't have an account?</span>
+            <button
+              @click="isRegister = !isRegister"
+              class="text-[14px] text-[#f02c56] font-semibold pl-1"
+            >
+              <span v-if="!isRegister">Sign up</span>
+              <span v-else>Log in</span>
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
