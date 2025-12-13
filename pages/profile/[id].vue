@@ -1,18 +1,19 @@
 <template>
     <div
+      v-if="$profileStore.name"
       class="pt-[90px] 2xl:pl-[200px] lg:pl-[160px] lg:pr-[0px] pr-2 w-[calc(100%-90px)] max-w-[1800px] 2xl:mx-auto"
     >
       <div class="flex ">
         <img
-          src="https://picsum.photos/300/300?grayscale"
+          :src="$profileStore.image"
           class="max-w-[120px] max-h-[120px] object-cover rounded-full"
           alt=""
         />
         <div class="ml-5 w-full">
-          <div class="text-[30px] font-bold truncate">User name</div>
-          <div class="text-[18px] truncate">User name</div>
+          <div class="text-[30px] font-bold truncate">{{ $generalStore.allLowerCaseCaps($profileStore.name) }}</div>
+          <div class="text-[18px] truncate">{{ $profileStore.name }}</div>
           <button
-            v-if="true"
+            v-if="$profileStore.id == $userStore.id"
             @click="$generalStore.isEditProfileOpen = true"
             class="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
           >
@@ -43,7 +44,7 @@
       </div>
 
       <div class="pt-4 mr-4 text-gray-500 font-light text-[15px] pl-1.5 max-w-[500px]">
-        This is the bio section
+        {{ $profileStore.bio }}
       </div>
 
       <div class="w-full flex items-center pt-4 border-b">
@@ -56,16 +57,31 @@
       </div>
 
       <div class="mt-4 grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-        <PostUser/>
-        <PostUser/>
-        <PostUser/>
-        <PostUser/>
+        <div v-if="show" v-for="post in $profileStore.posts" :key="post.id">
+          <PostUser :post="post"/>
+        </div>
       </div>
 
     </div>
 </template>
 <script setup>
-const {$generalStore} = useNuxtApp()
-// const {isEditProfileOpen} = storeToRefs($generalStore);
+import { storeToRefs } from 'pinia';
+const { $userStore , $profileStore , $generalStore } = useNuxtApp()
+const { posts } = storeToRefs($profileStore)
+const route = useRoute()
+
+let show = ref(false)
+
+onMounted(async()=>{
+  try{
+    await $profileStore.getProfile(route.params.id)
+  }catch(error){
+    console.log(error)
+  }
+})
+
+watch(()=>posts.value,()=>{
+  setTimeout(()=>show.value = true , 300)
+})
 </script>
 <style scoped></style>

@@ -35,13 +35,13 @@
                   id="profileImage"
                   class="rounded-full"
                   width="95"
-                  src="/test.jpeg"
+                  :src="userImage"
                   alt=""
                 />
                 <div
                   class="inline-block text-center absolute bottom-0 right-0 rounded-full bg-white shadow-xl border p-1 border-gray-300 w-[32px]"
                 >
-                  <Icon name="ph:pencil-simple-line-bold" />
+                  <Icon name="mdi:pencil-outline" />
                 </div>
               </label>
               <input
@@ -111,17 +111,21 @@
               v-if="!uploadedImage"
               class="flex items-center justify-end"
             >
-              <button
+              <!-- <button
+                @click="$generalStore.isEditProfileOpen = false"
                 class="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
               >
                 <span class="px-2 font-medium text-[15px]">Cancel</span>
-              </button>
-              <button
-                @click="cropAndUpdateImage()"
+              </button> -->
+              <!-- <button
+                @click="updateUser()"
                 class="flex items-center bg-[#f02c56] text-white border rounded-md ml-3 px-3 py-[6px]"
               >
                 <span class="px-2 font-medium text-[15px]">Apply</span>
-              </button>
+              </button> -->
+              <CustomButton @click="$generalStore.isEditProfileOpen = false" type="secondary" name="Cancel" size="mm"></CustomButton>
+
+              <CustomButton @click="updateUser()" class="ml-3" name="Apply" :loading="loading" :disabled="!isUpdated" size="mm"></CustomButton>
             </div>
           </div>
         </div>
@@ -155,29 +159,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div
-        id="ButtonSection"
-        class="absolute right-0 p-5 bottom-0 border-t border-t-gray-300 w-full"
-      >
-        <div
-          id="UpdateInfoButton"
-          v-if="!uploadedImage"
-          class="flex items-center justify-end"
-        >
-          <button
-            class="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
-          >
-            <span class="px-2 font-medium text-[15px]">Cancel</span>
-          </button>
-          <button
-            @click="cropAndUpdateImage()"
-            class="flex items-center bg-[#f02c56] text-white border rounded-md ml-3 px-3 py-[6px]"
-          >
-            <span class="px-2 font-medium text-[15px]">Apply</span>
-          </button>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -186,6 +167,7 @@ import { Cropper, CircleStencil } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 const { $generalStore, $userStore, $profileStore } = useNuxtApp();
 const { name, bio, image } = storeToRefs($userStore);
+const route = useRoute()
 
 let file = ref(null);
 let cropper = ref(null);
@@ -194,16 +176,55 @@ let userImage = ref(null);
 let userName = ref(null);
 let userBio = ref(null);
 let isUpdated = ref(false);
+let loading = ref(false);
+let photoCoordinates = ref();
 
 const getUploadedImage = (e) => {
   file.value = e.target.files[0];
   uploadedImage.value = URL.createObjectURL(file.value);
-  console.log(uploadedImage.value);
 };
+
+const updateUser = async ()=>{
+  loading.value = true;
+  if(file.value){
+    cropAndUpdateImage()
+  }
+  try{
+    await $userStore.updateUser(userName.value,userBio.value)
+    await $userStore.getUser()
+    await $profileStore.getProfile(route.params.id)
+    $generalStore.updateSideMenuImage($generalStore.suggested , $userStore)
+    $generalStore.updateSideMenuImage($generalStore.following , $userStore)
+    userImage.value = image.value
+    uploadedImage.value = null
+  }catch(error){
+    console.log(error)
+  }finally{
+    photoCoordinates.value = {}
+    loading.value = false;
+    $generalStore.isEditProfileOpen = false
+  }
+}
+
+const cropAndUpdateImage = async()=>{
+    let coordinates = photoCoordinates.value
+    let data = new FormData()
+    data.append('image',file.value || '')
+    data.append('height',coordinates.height || '')
+    data.append('width',coordinates.width || '')
+    data.append('left',coordinates.left || '')
+    data.append('top',coordinates.top || '')
+  try{
+    await $userStore.updateUserImage(data)
+  }catch(error){
+    console.log(error)
+  }
+}
 
 const cropImage = () => {
   if (cropper.value) {
     const { canvas } = cropper.value.getResult();
+    photoCoordinates.value = cropper.value.getResult().coordinates
     if (canvas) {
       // Convert canvas to blob
       canvas.toBlob(

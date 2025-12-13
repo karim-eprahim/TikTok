@@ -24,6 +24,11 @@ export const useGeneralStore = defineStore("general", {
       }
       document.body.style.overflow = 'visible'
     },
+
+    allLowerCaseCaps(str){
+      return str.split(' ').join("").toLowerCase()
+    },
+
     async hasSessionExpired(){
       await $axios.interceptors.response.use((response)=>{
         return response
@@ -41,6 +46,15 @@ export const useGeneralStore = defineStore("general", {
             break
           default:
             return Promise.reject(error);
+        }
+      }
+    },
+
+    updateSideMenuImage(array,user){
+      for(let i = 0 ; i < array.length ; i++){
+        const res = array[i]
+        if(res.id == user.id){
+          res.image = user.image
         }
       }
     }
