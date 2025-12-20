@@ -31,8 +31,13 @@
         Suggested accounts
       </div>
       <div class="border-b hidden lg:ml-2 mt-2"></div>
-      <div class="cursor-pointer">
-        <MenuItemFollow></MenuItemFollow>
+      <div 
+        v-if="$generalStore.suggested" 
+        v-for="sug in $generalStore.suggested"
+      >
+        <div class="cursor-pointer" @click="isLoggedIn(sug)">
+          <MenuItemFollow :user="sug"></MenuItemFollow>
+        </div>
       </div>
       <button class="lg:block hidden text-[#f02c56] pt-1 pl-2 text-[13px]">
         See all
@@ -45,8 +50,13 @@
         Following accounts
       </div>
       <div class="border-b hidden lg:ml-2 mt-2"></div>
-      <div class="cursor-pointer">
-        <MenuItemFollow></MenuItemFollow>
+      <div 
+        v-if="$generalStore.following" 
+        v-for="sug in $generalStore.following"
+      >
+        <div class="cursor-pointer" @click="isLoggedIn(sug)">
+          <MenuItemFollow :user="sug"></MenuItemFollow>
+        </div>
       </div>
       <button class="lg:block hidden text-[#f02c56] pt-1 pl-2 text-[13px]">
         See all
@@ -67,6 +77,16 @@
   </div>
 </template>
 <script setup>
+const {$generalStore , $userStore } = useNuxtApp()
 const route = useRoute();
+const router = useRouter();
+
+const isLoggedIn = (fol) =>{
+  if(!$userStore.id){
+    $generalStore.isLoginOpen = true
+    return
+  }
+  setTimeout(()=>router.push(`/profile/${fol.id}`),200)
+}
 </script>
 <style></style>

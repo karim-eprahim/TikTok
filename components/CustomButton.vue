@@ -2,7 +2,7 @@
     <button
       :disabled="isDisabled"
       :class="[
-        'relative flex items-center justify-center gap-3 font-[Sora] border transition select-none',
+        'relative flex items-center justify-center gap-3 border transition select-none',
         sizesCalButton,
         buttonTypeClasses
       ]"

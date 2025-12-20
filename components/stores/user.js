@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "~/plugins/axios";
+import { useGeneralStore } from "./general";
 const $axios = axios().provide.axios
 
 export const useUserStore = defineStore("user", {
@@ -52,6 +53,21 @@ export const useUserStore = defineStore("user", {
 
     async createPost(data){
       return await $axios.post('/api/posts',data)
+    },
+
+    async likePost(post,isPostPage){
+      let res = await $axios.post('/api/likes',{
+        post_id:post.id
+      })
+      console.log(res)
+      let singlePost = null
+      if(isPostPage){
+        singlePost = post
+      }else{
+        singlePost = useGeneralStore().posts.find(p=>p.id === post.id)
+      }
+      console.log(singlePost)
+      singlePost.likes.push(res.data.like)
     },
 
     async logout(){

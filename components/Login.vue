@@ -20,34 +20,39 @@
     </div>
     <div class="px-6 text-[12px] text-gray-600">Forget password</div>
     <div class="px-6 pb-2 mt-6">
-      <button
+      <CustomButton
         @click="Login()"
         :disabled="!email || !password"
-        :class="!email || !password ? 'bg-gray-200' : 'bg-[#f02c56]'"
-        class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
-      >
-        Log in
-      </button>
+        :loading="loading"
+        size="lg"
+        name="Log in"
+        class="w-100 max-w-full font-semibold"
+      ></CustomButton>
     </div>
   </div>
 </template>
 <script setup>
-const { $userStore,$generalStore } = useNuxtApp();
+const { $userStore, $generalStore } = useNuxtApp();
 
 let email = ref("karim@gmail.com");
 let password = ref("123123123");
 let errors = ref(null);
-const Login = async () => {
-  errors.value = null
-  try {
-    await $userStore.getTokens()
-    await $userStore.login(email.value,password.value)
-    await $userStore.getUser()
+let loading = ref(false);
 
-    $generalStore.isLoginOpen = false
-  } catch(error) {
-    console.log(error)
-    errors.value = error.response.data.errors
+const Login = async () => {
+  errors.value = null;
+  loading.value = true;
+  try {
+    await $userStore.getTokens();
+    await $userStore.login(email.value, password.value);
+    await $userStore.getUser();
+
+    $generalStore.isLoginOpen = false;
+  } catch (error) {
+    console.log(error);
+    errors.value = error.response.data.errors;
+  } finally {
+    loading.value = false;
   }
 };
 </script>

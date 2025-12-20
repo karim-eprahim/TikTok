@@ -17,6 +17,8 @@ onMounted(async ()=>{
   isLoginOpen.value = false
   try{
     await $generalStore.hasSessionExpired()
+    await $generalStore.getRandomUsers('suggested')
+    await $generalStore.getRandomUsers('following')
     if($userStore.id){
       $userStore.getUser()
     }
@@ -27,6 +29,10 @@ onMounted(async ()=>{
 
 watch(()=>isLoginOpen.value,(val)=>$generalStore.bodySwitch(val))
 watch(()=>isEditProfileOpen.value,(val)=>$generalStore.bodySwitch(val))
+// const { $toast } = useNuxtApp()
+// const showToast = () => {
+//   $toast.success("This is a success toast!")
+// }
 </script>
 <style>
 button {

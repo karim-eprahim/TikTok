@@ -167,6 +167,7 @@ import { Cropper, CircleStencil } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 const { $generalStore, $userStore, $profileStore } = useNuxtApp();
 const { name, bio, image } = storeToRefs($userStore);
+const { $toast } = useNuxtApp()
 const route = useRoute()
 
 let file = ref(null);
@@ -197,8 +198,9 @@ const updateUser = async ()=>{
     $generalStore.updateSideMenuImage($generalStore.following , $userStore)
     userImage.value = image.value
     uploadedImage.value = null
+    $toast.success("profile updated successfuly")
   }catch(error){
-    console.log(error)
+    $toast.error(error.response.data.error || 'Something Error ,Please Try Again')
   }finally{
     photoCoordinates.value = {}
     loading.value = false;
@@ -217,7 +219,8 @@ const cropAndUpdateImage = async()=>{
   try{
     await $userStore.updateUserImage(data)
   }catch(error){
-    console.log(error)
+    console.log(error.response)
+    $toast.error(error.response.data.error)
   }
 }
 

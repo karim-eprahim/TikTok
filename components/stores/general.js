@@ -50,14 +50,32 @@ export const useGeneralStore = defineStore("general", {
       }
     },
 
+    async getRandomUsers(type){
+      let res = await $axios.get(`/api/get-random-users`)
+      if(type == 'suggested'){
+        this.suggested = res.data.suggested
+      }
+      if(type == 'following'){
+        this.following = res.data.following
+      }
+    },
+
     updateSideMenuImage(array,user){
+      console.log(array)
       for(let i = 0 ; i < array.length ; i++){
         const res = array[i]
         if(res.id == user.id){
           res.image = user.image
         }
       }
+    },
+
+    async getAllUsersAndPosts(){
+      let res = await $axios.get(`/api/home`)
+      this.posts = res.data
+      console.log(this.posts)
     }
+
   },
   persist:true
 });

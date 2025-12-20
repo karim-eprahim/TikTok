@@ -82,7 +82,7 @@
                 class="absolute bg-white rounded-lg py-1.5 w-[200px] shadow-xl top-[55px] right-3"
               >
                 <nuxt-link
-                  :to="`profile/${$userStore.id}`"
+                  :to="`/profile/${$userStore.id}`"
                   @click="($event) => (showMenu = false)"
                   class="flex items-center justify-start m-0 py-3 px-2 hover:bg-gray-100 cursor-pointer"
                 >
