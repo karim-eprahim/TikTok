@@ -5,7 +5,7 @@
     </div>
     <div class="pl-3 w-full px-4">
       <div class="flex items-center justify-between pb-0 5">
-        <button>
+        <button class="flex flex-col sm:flex-row items-start sm:items-center">
           <span class="font-bold hover:underline cursor-pointer">{{
             $generalStore.allLowerCaseCaps(post.user.name)
           }}</span>
@@ -58,13 +58,18 @@
             alt=""
           />
         </div>
-        <div class="relative mr-[75px]">
-          <div class="absolute bottom-0 pl-2">
+        <div class="relative mr-[0px] sm:mr-[75px]">
+          <div class="absolute bottom-0 pl-2 right-2 sm:right-auto">
             <div class="pb-4 text-center">
               <button
-                @click="isLiked?unLikePost(post):likePost(post)" 
-                class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
-                <Icon name="material-symbols:favorite" size="25" />
+                @click="isLiked ? unLikePost(post) : likePost(post)"
+                class="rounded-full bg-gray-200 p-2 flex cursor-pointer"
+              >
+                <Icon
+                  name="material-symbols:favorite"
+                  size="25"
+                  :class="isLiked ? 'text-[#F02C56]' : ''"
+                />
               </button>
               <span class="text-xs text-gray-800 font-semibold">{{
                 post.likes.length
@@ -99,25 +104,25 @@ const { post } = toRefs(props);
 const router = useRouter();
 let video = ref(null);
 
-const isLoggedIn = (user) =>{
-  if(!$userStore.id){
-    $generalStore.isLoginOpen = true
-    return
+const isLoggedIn = (user) => {
+  if (!$userStore.id) {
+    $generalStore.isLoginOpen = true;
+    return;
   }
-  setTimeout(()=>router.push(`/profile/${user.id}`),200)
-}
+  setTimeout(() => router.push(`/profile/${user.id}`), 200);
+};
 
-const displayPost = (post) =>{
-  if(!$userStore.id){
-    $generalStore.isLoginOpen = true
-    return
+const displayPost = (post) => {
+  if (!$userStore.id) {
+    $generalStore.isLoginOpen = true;
+    return;
   }
-  $generalStore.setBackUrl('/')
-  $generalStore.selectedPost = null
-  setTimeout(()=>{
-    router.push(`/post/${post.id}`)
-  },200)
-}
+  $generalStore.setBackUrl("/");
+  $generalStore.selectedPost = null;
+  setTimeout(() => {
+    router.push(`/post/${post.id}`);
+  }, 200);
+};
 
 // onBeforeMount(()=>{
 //   video.value.pause()
@@ -125,36 +130,54 @@ const displayPost = (post) =>{
 //   video.value.src = ''
 // })
 
-const isLiked = computed(()=>{
-  let res = post.value.likes.find(like => like.user_id === $userStore.id)
-  if(res){
-    return true
-  }else{
-    return false 
+const isLiked = computed(() => {
+  let res = post.value.likes.find((like) => like.user_id === $userStore.id);
+  if (res) {
+    return true;
+  } else {
+    return false;
   }
-})
+});
 
-const likePost = async (post)=>{
-  if(!$userStore.id){
-    $generalStore.isLoginOpen = true
-    return
+const likePost = async (post) => {
+  if (!$userStore.id) {
+    $generalStore.isLoginOpen = true;
+    return;
   }
-  try{
-    await $userStore.likePost(post)
-  }catch(error){
-    console.log(error)
+  try {
+    await $userStore.likePost(post);
+  } catch (error) {
+    console.log(error);
   }
-}
+};
+
+const unLikePost = async (post) => {
+  if (!$userStore.id) {
+    $generalStore.isLoginOpen = true;
+    return;
+  }
+  try {
+    await $userStore.unLikePost(post);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 onMounted(() => {
   let observer = new IntersectionObserver(
     function (entries) {
       if (entries[0].isIntersecting) {
         console.log("Element is playing" + post.value.id);
-        video.value.play();
+        if (video.value) {
+          video.value.play().catch((err) => {
+            if (err.name !== "AbortError") console.error(err);
+          });
+        }
       } else {
         console.log("Element is paused" + post.value.id);
-        video.value.pause();
+        if (video.value) {
+          video.value.pause();
+        }
       }
     },
     { threshold: [0.6] }

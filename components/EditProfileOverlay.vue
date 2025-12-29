@@ -246,7 +246,6 @@ const cropImage = () => {
             // Reset uploadedImage to show the form again
             uploadedImage.value = null;
 
-            console.log("Image cropped successfully");
           }
         },
         "image/jpeg",

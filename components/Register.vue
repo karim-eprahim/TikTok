@@ -36,7 +36,7 @@
     </div>
     <div class="px-6 text-[12px] text-gray-600">Forget password</div>
     <div class="px-6 pb-2 mt-6">
-      <button
+      <!-- <button
         :disabled="!name || !email || !password || !confirmPassword"
         :class="
           !name || !email || !password || !confirmPassword
@@ -47,7 +47,15 @@
         class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
       >
         Sign up
-      </button>
+      </button> -->
+      <CustomButton
+        @click="register()"
+        :disabled="!name || !email || !password || !confirmPassword"
+        :loading="loading"
+        size="lg"
+        name="Sign up"
+        class="w-100 max-w-full font-semibold"
+      ></CustomButton>
     </div>
   </div>
 </template>
@@ -71,8 +79,9 @@ const register = async () => {
       password.value,
       confirmPassword.value
     )
-    console.log(res)
     await $userStore.getUser();
+    await $generalStore.getRandomUsers('suggested')
+    await $generalStore.getRandomUsers('following')
 
     $generalStore.isLoginOpen = false;
   } catch (error) {

@@ -10,7 +10,7 @@
           alt=""
         />
         <div class="ml-5 w-full">
-          <div class="text-[30px] font-bold truncate">{{ $generalStore.allLowerCaseCaps($profileStore.name) }}</div>
+          <div class="text-[20px] md:text-[30px] font-bold truncate">{{ $generalStore.allLowerCaseCaps($profileStore.name) }}</div>
           <div class="text-[18px] truncate">{{ $profileStore.name }}</div>
           <button
             v-if="$profileStore.id == $userStore.id"
@@ -69,6 +69,9 @@ import { storeToRefs } from 'pinia';
 const { $userStore , $profileStore , $generalStore } = useNuxtApp()
 const { posts } = storeToRefs($profileStore)
 const route = useRoute()
+definePageMeta({
+  middleware: 'auth'
+})
 
 let show = ref(false)
 

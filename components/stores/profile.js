@@ -22,7 +22,6 @@ export const useProfileStore = defineStore("profile", {
       this.$state.bio = res.data.user[0].bio
       this.$state.image = res.data.user[0].image
       this.$state.posts = res.data.posts
-      console.log(this.$state.posts)
     },
     resetUser(){
       this.$state.id = ''

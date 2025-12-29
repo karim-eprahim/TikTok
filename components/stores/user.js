@@ -55,19 +55,73 @@ export const useUserStore = defineStore("user", {
       return await $axios.post('/api/posts',data)
     },
 
+    async addComment(post,comment){
+      let res = await $axios.post('/api/comments',{
+        post_id:post.id,
+        comment:comment
+      })
+
+      if(res.status == 200){
+        await this.updateComments(post)
+      }
+    },
+
+    async deleteComment(post,commentId){
+      let res = await $axios.delete('/api/comments/'+commentId)
+
+      if(res.status == 200){
+        await this.updateComments(post)
+      }
+    },
+
+    async deletePost(post){
+      return await $axios.delete('/api/posts/'+post.id)
+    },
+
+    async updateComments(post){
+      let res = await $axios.get('/api/profiles/'+post.user.id)
+      for(let i = 0;i<res.data.posts.length;i++){
+        const updatePost = res.data.posts[i];
+        if(updatePost.id == post.id){
+          useGeneralStore().selectedPost.comments = updatePost.comments
+          break
+        }
+      }
+    },
+
     async likePost(post,isPostPage){
       let res = await $axios.post('/api/likes',{
         post_id:post.id
       })
-      console.log(res)
       let singlePost = null
       if(isPostPage){
         singlePost = post
       }else{
         singlePost = useGeneralStore().posts.find(p=>p.id === post.id)
       }
-      console.log(singlePost)
       singlePost.likes.push(res.data.like)
+    },
+
+    async unLikePost(post,isPostPage){
+      let singlePost = null
+      let deleteLike = null
+      if(isPostPage){
+        singlePost = post
+      }else{
+        singlePost = useGeneralStore().posts.find(p=>p.id === post.id)
+      }
+      singlePost.likes.forEach(like => {
+        if(like.user_id === this.id){
+          deleteLike = like
+        }
+      });
+      await $axios.delete('/api/likes/'+deleteLike.id)
+      for(let i=0;i<singlePost.likes.length;i++){
+        if(singlePost.likes[i].id === deleteLike.id){
+          singlePost.likes.splice(i,1)
+          break
+        }
+      }
     },
 
     async logout(){
