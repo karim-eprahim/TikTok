@@ -1,7 +1,7 @@
 <template>
   <div
     id="TopNav"
-    class="fixed bg-white z-30 flex items-center w-full shadow h-[61px]"
+    class="fixed bg-white dark:bg-gray-900 z-30 flex items-center w-full shadow dark:shadow-gray-800 h-[61px] border-b dark:border-gray-700"
   >
     <div
       :class="route.fullPath == '/' ? 'max-w-[1150px]' : ''"
@@ -14,14 +14,16 @@
       </div>
 
       <div
-        class="hidden md:flex items-center bg-[#f1f1f2] p-1 rounded-full max-w-[380px] w-full"
+        class="hidden md:flex items-center bg-[#f1f1f2] dark:bg-gray-800 p-1 rounded-full max-w-[380px] w-full"
       >
         <input
           type="text"
-          class="w-full pl-3 my-2 bg-transparent placeholder-[#838383] text-[15px] focus:outline-none"
+          class="w-full pl-3 my-2 bg-transparent placeholder-[#838383] dark:placeholder-gray-500 text-[15px] text-gray-900 dark:text-gray-100 focus:outline-none"
           placeholder="Search accounts"
         />
-        <div class="px-3 py-1 flex items-center border-l border-l-gray-300">
+        <div
+          class="px-3 py-1 flex items-center border-l border-l-gray-300 dark:border-l-gray-600"
+        >
           <Icon name="ri:search-line" color="A1A2A7" size="22" />
         </div>
       </div>
@@ -41,7 +43,10 @@
           />
         </div>
 
-        <div v-if="!$userStore.id" class="flex items-center justify-end md:justify-center min-w-[116px] sm:min-w-[126px]">
+        <div
+          v-if="!$userStore.id"
+          class="flex items-center justify-end md:justify-center min-w-[116px] sm:min-w-[126px]"
+        >
           <CustomButton name="Log in" size="mm" @click="isLoginOpen = true" />
           <Icon name="mdi:dots-vertical" color="#16724" size="25"></Icon>
         </div>
@@ -60,6 +65,8 @@
               color="#161724"
               size="27"
             ></Icon>
+            <ThemeToggle />
+            <ThemeSwitcher />
           </div>
           <div class="relative">
             <button class="mt-1" @click="showMenu = !showMenu">
@@ -76,19 +83,19 @@
               v-if="showMenu"
               @click.self="showMenu = false"
               id="PopupMenu"
-              class="absolute bg-white rounded-lg py-1.5 md:w-[200px] w-[130px] shadow-xl top-[55px] left-[-75px] md:left-[-150px]"
+              class="absolute bg-white dark:bg-gray-800 rounded-lg py-1.5 md:w-[200px] w-[130px] shadow-xl dark:shadow-gray-900 top-[55px] left-[-75px] md:left-[-150px] border dark:border-gray-700"
             >
               <nuxt-link
                 :to="`/profile/${$userStore.id}`"
                 @click="($event) => (showMenu = false)"
-                class="flex items-center justify-start m-0 py-3 px-2 hover:bg-gray-100 cursor-pointer"
+                class="flex items-center justify-start m-0 py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-900 dark:text-gray-100"
               >
                 <Icon name="material-symbols:person-outline" size="20"></Icon>
                 <span class="pl-2 font-semibold text-sm">profile</span>
               </nuxt-link>
               <div
                 @click="logout()"
-                class="flex items-center justify-start m-0 py-3 px-2 text-red-600 hover:bg-gray-100 border-t cursor-pointer"
+                class="flex items-center justify-start m-0 py-3 px-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 border-t dark:border-gray-700 cursor-pointer"
               >
                 <Icon
                   class="text-danger"
