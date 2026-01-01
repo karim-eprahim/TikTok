@@ -1,7 +1,7 @@
 <template>
   <div
     id="TopNav"
-    class="fixed bg-white z-30 flex items-center w-full shadow h-[61px]"
+    class="fixed bg-white dark:bg-[#121212] z-30 flex items-center w-full shadow h-[61px]"
   >
     <div
       :class="route.fullPath == '/' ? 'max-w-[1150px]' : ''"
@@ -31,6 +31,20 @@
           v-if="true"
           class="flex items-center justify-end gap-3 mr-2 lg:min-w-[275px] max-w-[95px] sm:max-w-[320px] w-full"
         >
+          <button
+            @click="isDark = !isDark"
+            class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <Icon
+              :name="
+                isDark
+                  ? 'material-symbols:nightlight-outline-rounded'
+                  : 'material-symbols:wb-sunny-outline-rounded'
+              "
+              :class="isDark ? 'text-[#FE2C55]' : 'text-[#161724]'"
+              size="25"
+            />
+          </button>
           <CustomButton
             iconName="teenyicons:add-small-solid"
             type="secondary"
@@ -41,7 +55,10 @@
           />
         </div>
 
-        <div v-if="!$userStore.id" class="flex items-center justify-end md:justify-center min-w-[116px] sm:min-w-[126px]">
+        <div
+          v-if="!$userStore.id"
+          class="flex items-center justify-end md:justify-center min-w-[116px] sm:min-w-[126px]"
+        >
           <CustomButton name="Log in" size="mm" @click="isLoginOpen = true" />
           <Icon name="mdi:dots-vertical" color="#16724" size="25"></Icon>
         </div>
@@ -107,10 +124,20 @@
 </template>
 <script setup>
 const { $userStore, $generalStore } = useNuxtApp();
+const colorMode = useColorMode();
 const route = useRoute();
 const router = useRouter();
 const { isLoginOpen } = storeToRefs($generalStore);
 let showMenu = ref(false);
+
+const isDark = computed({
+  get() {
+    return colorMode.value === "dark";
+  },
+  set(value) {
+    colorMode.preference = value ? "dark" : "light";
+  },
+});
 
 onMounted(() => {
   const onDocMouseUp = function (e) {

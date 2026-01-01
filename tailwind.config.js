@@ -1,6 +1,4 @@
-// tailwind.config.js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
       './components/**/*.{vue,js,ts}',
       './layouts/**/*.vue',
@@ -8,6 +6,7 @@ module.exports = {
       './plugins/**/*.{js,ts}',
       './nuxt.config.{js,ts}',
     ],
+    darkMode: 'class',
     theme: {
       extend: {},
     },

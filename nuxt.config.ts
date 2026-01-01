@@ -7,7 +7,22 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/icon",
+    "@nuxtjs/color-mode",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
   ],
+  tailwindcss: {
+    viewer: true,
+    // config: {
+    //   darkMode: 'class',
+    // }
+  },
+  colorMode:{
+    preference: 'light', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if no system preference found
+    dataValue:"theme",
+    classPrefix: '',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode'
+  }
 });

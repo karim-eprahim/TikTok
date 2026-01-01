@@ -1,5 +1,5 @@
 <template>
-  <div :id="`PostMain-${post.id}`" class="flex border-b py-6">
+  <div :id="`PostMain-${post.id}`" class="flex border-b py-6 dark:bg-gray-900">
     <div class="cursor-pointer" @click="isLoggedIn(post.user)">
       <img :src="post.user.image" alt="" class="rounded-full max-h-[60px]" />
     </div>
