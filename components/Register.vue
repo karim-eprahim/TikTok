@@ -34,7 +34,7 @@
         :error="errors && errors.confirmPassword ? errors.confirmPassword[0] : ''"
       />
     </div>
-    <div class="px-6 text-[12px] text-gray-600">Forget password</div>
+    <div class="px-6 text-[12px] text-gray-600 dark:text-gray-400">Forget password</div>
     <div class="px-6 pb-2 mt-6">
       <!-- <button
         :disabled="!name || !email || !password || !confirmPassword"
@@ -54,7 +54,7 @@
         :loading="loading"
         size="lg"
         name="Sign up"
-        class="w-100 max-w-full font-semibold"
+        class="w-full max-w-full font-semibold"
       ></CustomButton>
     </div>
   </div>

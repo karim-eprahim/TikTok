@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex items-center hover:bg-gray-100 p-2.5 rounded-sm">
+  <div class="w-full flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 p-2.5 rounded-sm">
     <div class="flex items center lg:mx-0 mx-auto">
       <Icon :name="icon" :class="`text-[${iconColor}]`"  :size="sizeString"></Icon>
       <span

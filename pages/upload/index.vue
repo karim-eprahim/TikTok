@@ -13,7 +13,7 @@
     ></Icon>
   </div>
   <div
-    class="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md px-4 py-6 md:px-10"
+    class="w-full mt-[80px] mb-[40px] bg-white dark:bg-gray-800 shadow-lg rounded-md px-4 py-6 md:px-10"
   >
     <div>
       <div class="text-[23px] font-semibold">Upload Video</div>
@@ -25,7 +25,7 @@
         for="fileInput"
         @drop.prevent="onDrop"
         @dragover.prevent=""
-        class="md:mx-0 mx-auto mt-4 mb-6 flex flex-col items-center justify-center w-full max-w-[260px] h-[470px] text-center p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer"
+        class="md:mx-0 mx-auto mt-4 mb-6 flex flex-col items-center justify-center w-full max-w-[260px] h-[470px] text-center p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
       >
         <Icon
           name="majesticons:cloud-upload"
@@ -98,7 +98,7 @@
 
       <div class="mt-4 mb-6">
         <div
-          class="flex flex-col sm:flex-row items-start sm:items-center bg-[#f8f8f8] py-4 px-6 rounded-xl"
+          class="flex flex-col sm:flex-row items-start sm:items-center bg-[#f8f8f8] dark:bg-gray-700 py-4 px-6 rounded-xl"
         >
           <div>
             <Icon
@@ -139,7 +139,7 @@
             v-model="caption"
             maxlength="150"
             type="text"
-            class="w-full border p-2.5 rounded-md focus:outline-none"
+            class="w-full border p-2.5 rounded-md focus:outline-none dark:bg-gray-700"
           />
         </div>
 

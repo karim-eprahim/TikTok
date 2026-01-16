@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // css: ['@/assets/css/tailwind.css'],
+  css: ['@/assets/css/dark-mode.css'],
   pages:true,
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/color-mode",
   ],
   tailwindcss: {
     viewer: true,

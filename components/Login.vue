@@ -18,7 +18,7 @@
         inputType="password"
       />
     </div>
-    <div class="px-6 text-[12px] text-gray-600">Forget password</div>
+    <div class="px-6 text-[12px] text-gray-600 dark:text-gray-400">Forget password</div>
     <div class="px-6 pb-2 mt-6">
       <CustomButton
         @click="Login()"
@@ -26,7 +26,7 @@
         :loading="loading"
         size="lg"
         name="Log in"
-        class="w-100 max-w-full font-semibold"
+        class="w-full max-w-full font-semibold"
       ></CustomButton>
     </div>
   </div>

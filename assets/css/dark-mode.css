@@ -1,0 +1,69 @@
+/* 
+ * Premium Scrollbar Styles for Dark Mode
+ * Scoped to .dark class used by Nuxt Color Mode
+ */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
+/* Scrollbar Track */
+.dark ::-webkit-scrollbar-track,
+.dark::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Scrollbar Thumb */
+.dark ::-webkit-scrollbar-thumb,
+.dark::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    transition: background 0.3s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover,
+.dark::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar Width/Height */
+.dark ::-webkit-scrollbar,
+.dark::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Firefox compatibility */
+.dark {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Smooth scrolling for a better feel */
+html.dark {
+    scroll-behavior: smooth;
+}
+
+/* 
+ * Global Border & Divider Handling for Dark Mode
+ * This ensures all borders and separators across the app 
+ * switch to a premium dark-mode gray.
+ */
+
+/* Target elements with common border classes to override light-mode defaults */
+.dark [class*="border"],
+.dark hr {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Common Background Overrides for "Light Gray" elements */
+.dark .input:-internal-autofill-selected{
+    background-color: #d82a2a !important;
+}

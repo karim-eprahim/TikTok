@@ -5,7 +5,7 @@
   >
     <!-- class="fixed flex justify-center pt-14 md:pt-[105px] z-50 top-0 left-0 w-full h-full bg-black/50 overflow-auto" -->
     <div
-      class="relative bg-white w-full max-h-fit min-h-[550px] max-w-[700px] mx-3 p-4 rounded-lg mb-10 overflow-auto"
+      class="relative bg-white w-full max-h-fit min-h-[550px] max-w-[700px] mx-3 p-4 rounded-lg mb-10 overflow-auto dark:bg-gray-800"
     >
       <div
         class="absolute flex items-center justify-between w-full p-5 left-0 top-0 border-b border-b-gray-300"
@@ -25,7 +25,7 @@
             class="flex flex-col border-b px-1.5 py-2 w-full"
           >
             <div
-              class="font-semibold text-[15px] sm:mg-0 text-gray-700 sm:w-[160px] sm:text-left text-center w-full"
+              class="font-semibold text-[15px] sm:mg-0 text-gray-700 dark:text-gray-300 sm:w-[160px] sm:text-left text-center w-full"
             >
               Profile photo
             </div>
@@ -39,7 +39,7 @@
                   alt=""
                 />
                 <div
-                  class="inline-block text-center absolute bottom-0 right-0 rounded-full bg-white shadow-xl border p-1 border-gray-300 w-[32px]"
+                  class="inline-block text-center absolute bottom-0 right-0 rounded-full bg-white dark:bg-gray-700 shadow-xl border p-1 border-gray-300 dark:border-gray-700 w-[32px]"
                 >
                   <Icon name="mdi:pencil-outline" />
                 </div>
@@ -59,7 +59,7 @@
             class="flex flex-col border-b px-1.5 py-2 mt-1.5 w-full"
           >
             <div
-              class="font-semibold text-[15px] sm:mg-0 text-gray-700 sm:w-[160px] sm:text-left text-center w-full"
+              class="font-semibold text-[15px] sm:mg-0 text-gray-700 dark:text-gray-300 sm:w-[160px] sm:text-left text-center w-full"
             >
               Username
             </div>
@@ -82,7 +82,7 @@
           <!-- Bio  -->
           <div id="BioSection" class="flex flex-col px-1.5 py-2 mt-2 w-full">
             <div
-              class="font-semibold text-[15px] sm:mb-0 text-gray-700 sm:w-[160px] sm:text-left text-center w-full"
+              class="font-semibold text-[15px] sm:mb-0 text-gray-700 dark:text-gray-300 sm:w-[160px] sm:text-left text-center w-full"
             >
               Bio
             </div>
@@ -93,9 +93,9 @@
                   rows="4"
                   v-model="userBio"
                   maxlength="80"
-                  class="resize-none w-full bg-[#f1f1f2] text-gray-800 border border-gray-300 rounded-md py-2.5 px-3 focus:outline-none"
+                  class="resize-none w-full bg-[#f1f1f2] dark:bg-gray-700 text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-md py-2.5 px-3 focus:outline-none"
                 ></textarea>
-                <div v-if="userBio" class="text-[11px] text-gray-500">
+                <div v-if="userBio" class="text-[11px] text-gray-500 dark:text-gray-400">
                   {{ userBio.length }}/80
                 </div>
               </div>

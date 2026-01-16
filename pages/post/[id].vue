@@ -95,7 +95,7 @@
     <div
       id="InfoSection"
       v-if="$generalStore.selectedPost"
-      class="lg:max-w-[550px] relative w-full h-full bg-white"
+      class="lg:max-w-[550px] relative w-full h-full bg-white dark:bg-gray-800"
     >
       <div class="py-7"></div>
       <div class="flex items-center justify-between px-8">
@@ -173,7 +173,7 @@
 
       <div
         id="Comments"
-        class="bg-[#f8f8f8] z-0 w-full h-[calc(100%-273px)] border-t-2 overflow-auto"
+        class="bg-[#f8f8f8] dark:bg-gray-900 z-0 w-full h-[calc(100%-273px)] border-t-2 overflow-auto"
       >
         <div class="pt-2" />
 
@@ -224,22 +224,22 @@
       <div
         v-if="$userStore.id"
         id="CreateComment"
-        class="absolute flex justify-between bottom-0 bg-white h-[85px] lg-max-w-[550px] w-full py-5 px-8 border-t-2"
+        class="absolute flex justify-between bottom-0 bg-white dark:bg-gray-900 h-[85px] lg-max-w-[550px] w-full py-5 px-8 border-t-2"
       >
         <div
           :class="
             inputFocused
               ? 'border-2 border-gray-400'
-              : 'border-2 border-[#f1f1f2]'
+              : 'border-2 border-[#f1f1f2] dark:border-gray-700'
           "
-          class="bg-[#f1f1f2] flex items-center rounded-lg w-full lg:max-w-[420px]"
+          class="bg-[#f1f1f2] dark:bg-gray-700 flex items-center rounded-lg w-full lg:max-w-[420px]"
         >
           <input
             type="text"
             v-model="comment"
             @focus="inputFocused = true"
             @blur="inputFocused = false"
-            class="bg-[#f1f1f2] text-[14px] focus:outline-none w-full lg:max-w-[420px] p-2 rounded-lg"
+            class="bg-[#f1f1f2] dark:bg-gray-700 text-[14px] focus:outline-none w-full lg:max-w-[420px] p-2 rounded-lg"
             placeholder="Add Comment"
           />
         </div>
@@ -259,7 +259,7 @@
       class="fixed flex items-center justify-center top-0 left-0 w-full h-full bg-[#00000066] z-[60]"
     >
       <div
-        class="relative bg-white w-full max-w-[300px] sm:max-w-md mx-6 rounded-lg p-6 text-center"
+        class="relative bg-white dark:bg-gray-800 w-full max-w-[300px] sm:max-w-md mx-6 rounded-lg p-6 text-center"
       >
         <Icon
           name="mingcute:warning-line"

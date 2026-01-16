@@ -6,33 +6,36 @@
     <div class="pl-3 w-full px-4">
       <div class="flex items-center justify-between pb-0 5">
         <button class="flex flex-col sm:flex-row items-start sm:items-center">
-          <span class="font-bold hover:underline cursor-pointer">{{
-            $generalStore.allLowerCaseCaps(post.user.name)
-          }}</span>
           <span
-            class="text-[13px] text-light text-gray-500 pl-1 cursor-pointer"
+            class="font-bold hover:underline cursor-pointer text-gray-900 dark:text-white"
+            >{{ $generalStore.allLowerCaseCaps(post.user.name) }}</span
+          >
+          <span
+            class="text-[13px] text-light text-gray-500 dark:text-gray-400 pl-1 cursor-pointer"
             >{{ post.user.name }}</span
           >
         </button>
         <button
           @click="isLoggedIn(post.user)"
-          class="border text-[15px] px-[21px] py-0.5 border-[#F02C56] text-[#F02C56] hover:bg-[#ffeef2] font-semibold rounded-md"
+          class="border text-[15px] px-[21px] py-0.5 border-[#F02C56] text-[#F02C56] hover:bg-[#ffeef2] dark:hover:bg-[#4a1520] font-semibold rounded-md"
         >
           Follow
         </button>
       </div>
 
       <div
-        class="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px]"
+        class="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px] text-gray-900 dark:text-gray-100"
       >
         {{ post.text }}
       </div>
 
-      <div class="text-[14px] text-gray-500 pb-0.5">
+      <div class="text-[14px] text-gray-500 dark:text-gray-400 pb-0.5">
         #fun #cool #SuperAwesome
       </div>
 
-      <div class="text-[14px] pb-0.5 flex items-center font-semibold">
+      <div
+        class="text-[14px] pb-0.5 flex items-center font-semibold text-gray-900 dark:text-gray-100"
+      >
         <Icon name="solar:music-note-bold" size="17px" />
         <div class="px-1">original sound - AWESOME</div>
         <Icon name="material-symbols:favorite" size="20px" />
@@ -63,33 +66,50 @@
             <div class="pb-4 text-center">
               <button
                 @click="isLiked ? unLikePost(post) : likePost(post)"
-                class="rounded-full bg-gray-200 p-2 flex cursor-pointer"
+                class="rounded-full bg-gray-200 dark:bg-gray-700 p-2 flex cursor-pointer"
               >
                 <Icon
                   name="material-symbols:favorite"
                   size="25"
-                  :class="isLiked ? 'text-[#F02C56]' : ''"
+                  :class="isLiked ? 'text-[#F02C56]' : 'dark:text-gray-300'"
                 />
               </button>
-              <span class="text-xs text-gray-800 font-semibold">{{
-                post.likes.length
-              }}</span>
+              <span
+                class="text-xs text-gray-800 dark:text-gray-200 font-semibold"
+                >{{ post.likes.length }}</span
+              >
             </div>
 
             <div class="pb-4 text-center">
-              <button class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
-                <Icon name="bx:bxs-message-rounded-dots" size="25" />
+              <button
+                class="rounded-full bg-gray-200 dark:bg-gray-700 p-2 flex cursor-pointer"
+              >
+                <Icon
+                  name="bx:bxs-message-rounded-dots"
+                  size="25"
+                  class="dark:text-gray-300"
+                />
               </button>
-              <span class="text-xs text-gray-800 font-semibold">{{
-                post.comments.length
-              }}</span>
+              <span
+                class="text-xs text-gray-800 dark:text-gray-200 font-semibold"
+                >{{ post.comments.length }}</span
+              >
             </div>
 
             <div class="pb-4 text-center">
-              <button class="rounded-full bg-gray-200 p-2 flex cursor-pointer">
-                <Icon name="mingcute:share-forward-fill" size="25" />
+              <button
+                class="rounded-full bg-gray-200 dark:bg-gray-700 p-2 flex cursor-pointer"
+              >
+                <Icon
+                  name="mingcute:share-forward-fill"
+                  size="25"
+                  class="dark:text-gray-300"
+                />
               </button>
-              <span class="text-xs text-gray-800 font-semibold">4</span>
+              <span
+                class="text-xs text-gray-800 dark:text-gray-200 font-semibold"
+                >4</span
+              >
             </div>
           </div>
         </div>

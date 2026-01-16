@@ -2,7 +2,7 @@
     <button
       :disabled="isDisabled"
       :class="[
-        'relative flex items-center justify-center gap-3 border transition select-none',
+        'relative flex items-center justify-center gap-3 border dark:border-gray-700 transition select-none',
         sizesCalButton,
         buttonTypeClasses
       ]"
@@ -95,8 +95,8 @@
         hover: 'hover:bg-[#ff6680]'
       },
       secondary: {
-        base: 'bg-white text-black',
-        hover: 'hover:bg-gray-100'
+        base: 'bg-white dark:bg-gray-700 text-black dark:text-white',
+        hover: 'hover:bg-gray-100 dark:hover:bg-gray-600'
       },
       success: {
         base: 'bg-green-600 text-white',
@@ -116,7 +116,7 @@
   })
   
   const textColorClass = computed(() =>
-    props.type === 'secondary' ? 'text-black' : 'text-white'
+    props.type === 'secondary' ? 'text-black dark:text-white' : 'text-white'
   )
   
   const iconColorClass = textColorClass

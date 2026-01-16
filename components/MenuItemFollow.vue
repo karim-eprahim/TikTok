@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center hover:bg-gray-100 rounded-md w-full py-1.5 px-2">
+    <div class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md w-full py-1.5 px-2">
         <img :src="user.image" width="35" class="rounded-full lg:mx-0 mx-auto" alt="">
         <div class="lg:pl-2 5 lg:block hidden">
             <div class="flex items-center">
@@ -10,7 +10,7 @@
                     <Icon class="relative -top-[5px]" name="material-symbols:fitbit-check-small"  size="15"></Icon>
                 </div>
             </div>
-            <div class="font-light text-[12px] text-gray-600">
+            <div class="font-light text-[12px] text-gray-600 dark:text-gray-400">
                 {{ user.name }}
             </div>
         </div>

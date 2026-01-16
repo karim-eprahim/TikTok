@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-[#f8f8f8] h-[100vh]">
+  <div class="bg-[#f8f8f8] dark:bg-gray-900 h-[100vh]">
     <TopNav />
-    <div class="flex justify-between mx-auto px-2 max-w-[1140px]">
+    <div class="flex justify-between mx-auto dark:bg-gray-900 px-2 max-w-[1140px]">
       <slot/>
     </div>
   </div>
