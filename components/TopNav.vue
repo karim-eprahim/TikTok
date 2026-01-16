@@ -1,7 +1,7 @@
 <template>
   <div
     id="TopNav"
-    class="fixed bg-white dark:bg-gray-800  z-30 flex items-center w-full shadow h-[61px]"
+    class="fixed bg-white dark:bg-gray-800 z-30 flex items-center w-full shadow h-[61px]"
   >
     <div
       :class="route.fullPath == '/' ? 'max-w-[1150px]' : ''"
@@ -9,7 +9,19 @@
     >
       <div :class="route.fullPath == '/' ? 'w-[80%]' : ''">
         <nuxt-link to="/">
-          <img src="~/assets/images/tiktok-logo.png" width="115" />
+          <!-- Light logo -->
+          <img
+            src="~/assets/images/reelo-light.png"
+            width="115"
+            class="block dark:hidden"
+          />
+
+          <!-- Dark logo -->
+          <img
+            src="~/assets/images/reelo-dark.png"
+            width="115"
+            class="hidden dark:block"
+          />
         </nuxt-link>
       </div>
 

@@ -70,16 +70,16 @@
 
       <div class="lg:block hidden text-[11px] text-gray-500 dark:text-gray-400">
         <div class="pt-4 px-2">
-          About Newsroom TikTok Shop Contact Careers ByteDance.
+          About Newsroom Reelo Shop Contact Careers ByteDance.
         </div>
         <div class="pt-4 px-2">
-          TikTok for Good Advertise Developers Transparency TikTok Rewards
-          TikTok Browse TikTok Embeds
+          Reelo for Good Advertise Developers Transparency Reelo Rewards Reelo
+          Browse Reelo Embeds
         </div>
         <div class="pt-4 px-2">
           Help Safety Terms Privacy Creator Portal Community GuideLine.
         </div>
-        <div class="pt-4 px-2">2025 TikTok</div>
+        <div class="pt-4 px-2">2025 Reelo</div>
       </div>
 
       <div class="pb-14"></div>

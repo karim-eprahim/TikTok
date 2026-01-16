@@ -32,9 +32,14 @@
       </div>
 
       <img
-        class="absolute top-[18px] left-[70px] rounded-full lg:mx-0 mx-auto"
+        class="absolute top-[18px] left-[70px] rounded-full lg:mx-0 mx-auto block dark:hidden"
         width="45"
-        src="~/assets/images/tiktok-logo-small.png"
+        src="~/assets/images/reelo-light-small.png"
+      />
+      <img
+        class="absolute top-[18px] left-[70px] rounded-full lg:mx-0 mx-auto hidden dark:block"
+        width="45"
+        src="~/assets/images/reelo-dark-small.png"
       />
 
       <!-- <video

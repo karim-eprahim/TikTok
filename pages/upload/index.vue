@@ -65,9 +65,14 @@
             class="absolute z-20 pointer-events-none inset-0"
           />
           <img
-            src="~\assets\images\tiktok-logo-white.png"
+            src="~\assets\images\reelo-light.png"
             width="90"
-            class="absolute right-4 bottom-6 z-20"
+            class="absolute right-4 bottom-6 z-20 block dark:hidden"
+          />
+          <img
+            src="~\assets\images\reelo-dark.png"
+            width="90"
+            class="absolute right-4 bottom-6 z-20 hidden dark:block"
           />
           <video
             autoplay

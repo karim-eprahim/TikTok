@@ -55,7 +55,7 @@
             :src="post.video"
           ></video>
           <img
-            src="~/assets/images/tiktok-logo-white.png"
+            src="~/assets/images/reelo-light.png"
             width="90"
             class="absolute right-2 bottom-14"
             alt=""
