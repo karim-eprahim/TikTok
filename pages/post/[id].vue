@@ -156,10 +156,10 @@
         <div class="pb-4 text-center flex items-center">
           <button
             @click="isLiked ? unLikePost() : likePost()"
-            class="flex rounded-full bg-gray-200 p-2 cursor-pointer"
+            class="flex rounded-full bg-gray-200 dark:bg-gray-700 p-2 cursor-pointer"
           >
             <Icon
-              :class="isLiked ? 'text-[#F02C56]' : ''"
+              :class="isLiked ? 'text-[#F02C56]' : 'dark:text-gray-300'"
               name="material-symbols:favorite"
               size="25"
             />
@@ -169,7 +169,7 @@
           }}</span>
         </div>
         <div class="pb-4 text-center flex items-center">
-          <div class="flex rounded-full bg-gray-200 p-2 cursor-pointer">
+          <div class="flex rounded-full bg-gray-200 dark:bg-gray-700 p-2 cursor-pointer">
             <Icon name="bx:bxs-message-rounded-dots" size="25" />
           </div>
           <span class="text-sm pl-2 pr-4 text-gray-800 font-semibold">{{ $generalStore.selectedPost.comments.length }}</span>

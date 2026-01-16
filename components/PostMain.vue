@@ -83,6 +83,7 @@
             <div class="pb-4 text-center">
               <button
                 class="rounded-full bg-gray-200 dark:bg-gray-700 p-2 flex cursor-pointer"
+                @click="displayPost(post)"
               >
                 <Icon
                   name="bx:bxs-message-rounded-dots"
