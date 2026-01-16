@@ -33,6 +33,7 @@
           v-if="true"
           class="flex items-center justify-end gap-3 mr-2 lg:min-w-[275px] max-w-[95px] sm:max-w-[320px] w-full"
         >
+          <ThemeToggle />
           <CustomButton
             iconName="teenyicons:add-small-solid"
             type="secondary"
@@ -65,7 +66,6 @@
               color="#161724"
               size="27"
             ></Icon>
-            <ThemeToggle />
           </div>
           <div class="relative">
             <button class="mt-1" @click="showMenu = !showMenu">
